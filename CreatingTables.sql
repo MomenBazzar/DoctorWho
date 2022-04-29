@@ -5,7 +5,7 @@ USE DoctorWho;
 DROP TABLE IF EXISTS tblDoctor;
 CREATE TABLE tblDoctor (
 	DoctorId INT IDENTITY(1,1) PRIMARY KEY,
-	DoctorNumber INT,
+	DoctorNumber VARCHAR(20),
 	DoctorName VARCHAR(50),
 	BirthDate DATE,
 	FirstEpisodeDate DATE,
