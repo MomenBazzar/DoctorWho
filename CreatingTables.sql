@@ -3,6 +3,13 @@ CREATE DATABASE DoctorWho;
 USE DoctorWho;
 
 DROP TABLE IF EXISTS tblDoctor;
+DROP TABLE IF EXISTS tblAuthor;
+DROP TABLE IF EXISTS tblEnemy;
+DROP TABLE IF EXISTS tblCompanion;
+DROP TABLE IF EXISTS tblEpisode;
+DROP TABLE IF EXISTS tblEpisodeCompanion;
+DROP TABLE IF EXISTS tblEpisodeEnemy;
+
 CREATE TABLE tblDoctor (
 	DoctorId INT IDENTITY(1,1) PRIMARY KEY,
 	DoctorNumber VARCHAR(20),
@@ -12,27 +19,23 @@ CREATE TABLE tblDoctor (
 	LastEpisodeDate DATE
 )
 
-DROP TABLE IF EXISTS tblAuthor;
 CREATE TABLE tblAuthor (
 	AuthorId INT IDENTITY(1,1) PRIMARY KEY,
 	AuthorName VARCHAR(50),
 )
 
-DROP TABLE IF EXISTS tblEnemy;
 CREATE TABLE tblEnemy (
 	EnemyId INT IDENTITY(1,1) PRIMARY KEY,
 	EnemyName VARCHAR(50),
 	Descrpition VARCHAR(255)
 )
 
-DROP TABLE IF EXISTS tblCompanion;
 CREATE TABLE tblCompanion (
 	CompanionId INT IDENTITY(1,1) PRIMARY KEY,
 	CompanionName VARCHAR(50),
 	WhoPlayed VARCHAR(255)
 )
 
-DROP TABLE IF EXISTS tblEpisode;
 CREATE TABLE tblEpisode (
 	EpisodeId INT IDENTITY(1,1) PRIMARY KEY,
 	SeriesNumber INT,
@@ -49,7 +52,6 @@ CREATE TABLE tblEpisode (
 		REFERENCES tblDoctor(DoctorId)
 )
 
-DROP TABLE IF EXISTS tblEpisodeCompanion;
 CREATE TABLE tblEpisodeCompanion (
 	EpisodeCompanionId INT IDENTITY(1,1) PRIMARY KEY,
 	EpisodeId INT,
@@ -60,7 +62,6 @@ CREATE TABLE tblEpisodeCompanion (
 		REFERENCES tblCompanion(CompanionId)
 )
 
-DROP TABLE IF EXISTS tblEpisodeEnemy;
 CREATE TABLE tblEpisodeEnemy (
 	EpisodeEnemyId INT IDENTITY(1,1) PRIMARY KEY,
 	EpisodeId INT,
