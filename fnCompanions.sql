@@ -1,29 +1,17 @@
 CREATE FUNCTION fnCompanions(@EpisodeId INT)
 RETURNS VARCHAR(MAX) AS
 BEGIN
-	DECLARE @answer VARCHAR(MAX) = '';
+	DECLARE @c varchar(MAX) = ''
 
-	DECLARE cursorEC CURSOR
-		FOR 
-			SELECT CompanionName FROM tblCompanion AS C
-				INNER JOIN tblEpisodeCompanion AS EC 
-				ON C.CompanionId = EC.CompanionId
-				WHERE EpisodeId = @EpisodeId;
-	
-	DECLARE @name VARCHAR(MAX);
-	OPEN cursorEC;
-	FETCH NEXT FROM cursorEC INTO @name;
-
-	WHILE @@FETCH_STATUS = 0
-	BEGIN
-		SET @answer = @answer + ', ' + @name;
-		FETCH NEXT FROM cursorEC INTO @name;
-	END;
-
-	IF LEN(@answer) > 2
-	BEGIN
-		SET @answer = RIGHT(@answer, LEN(@answer) - 2);
-	END;
-
-    RETURN @answer
+	SELECT
+		@c = @c + 
+			CASE WHEN len(@c) > 0 THEN ', ' ELSE '' END + 
+			c.CompanionName
+		
+	FROM
+		tblEpisodeCompanion AS ec
+		INNER JOIN tblCompanion AS c ON ec.CompanionId = c.CompanionId
+	WHERE
+		ec.EpisodeId = @EpisodeId
+	RETURN @c
 END;
